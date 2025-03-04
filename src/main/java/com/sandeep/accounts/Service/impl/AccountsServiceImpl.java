@@ -13,6 +13,7 @@ import com.sandeep.accounts.Mapper.CustomerMapper;
 import com.sandeep.accounts.Repository.AccountsRepository;
 import com.sandeep.accounts.Repository.CustomerRepository;
 import com.sandeep.accounts.Service.IAccountsService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -102,4 +103,17 @@ public class AccountsServiceImpl implements IAccountsService {
 
     }
 
+    @Override
+    @Transactional
+    public boolean deleteAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("customer", "mobileNumber", mobileNumber)
+        );
+        accountsRepository.deleteByCustomerId(customer.getCustomerId());
+        customerRepository.deleteById(customer.getCustomerId());
+        return true;
+    }
 }
+
+
+
