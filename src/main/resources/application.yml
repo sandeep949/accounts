@@ -14,8 +14,4 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-springdoc:
-    api-docs:
-      enabled: true
-    swagger-ui:
-      enabled: true
+
