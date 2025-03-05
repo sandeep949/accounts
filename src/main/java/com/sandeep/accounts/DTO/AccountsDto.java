@@ -1,13 +1,18 @@
 package com.sandeep.accounts.DTO;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 
 public class AccountsDto {
 
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    @NotEmpty(message = "account number should not be empty")
     private Long accountNumber;
 
+    @NotEmpty(message = "account type should not be empty")
     private String accountType;
 
     private String branchAddress;
